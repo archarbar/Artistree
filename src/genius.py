@@ -65,22 +65,26 @@ def find_artistID(artistName):
 
     #link for most popular song for artist
     y = json.loads(song_request.text)
-    artistID = str(y['response']['hits'][0]['result']['primary_artist']['id'])
+    try:
+        artistID = str(y['response']['hits'][0]['result']['primary_artist']['id'])
+    except:
+        return None
     return artistID
 
-def clean_lyrics(lyrics):
+def clean_lyrics(songs):
     names = []
 
-    composite_names = re.finditer(r'([A-Z]+[^A-z]+)+|([A-Z0-9][A-z0-9]*([\ ][A-Z0-9][A-z0-9]*)*)', lyrics)
-
-    # use finditer because re.findall can't match capture groups
-    # match all capitalized words/numbers of groups of capitalized words/numbers separated by spaces (to match artist names)
-    # composite_names = re.finditer(r'[A-Z0-9][A-z0-9]*([\ ][A-Z0-9][A-z0-9]*)*', lyrics)
-    for name in composite_names:
-        names.append(name.group())
+    for song in songs:
+        # use finditer because re.findall can't match capture groups
+        # match all capitalized words/numbers of groups of capitalized words/numbers separated by spaces (to match artist names)
+        composite_names = re.finditer(r'([A-Z]+[^A-z]+)+|([A-Z0-9][A-z0-9]*([\ ][A-Z0-9][A-z0-9]*)*)', song)
+        for name in composite_names:
+            names.append(name.group())
     return names
 
 def find_nicknames(artistID):
+    if artistID is None:
+        return None
     artist_path = 'artists/'
     artist_request_uri = base_url + '/' + artist_path + artistID
     artist_request = requests.get(artist_request_uri, headers=headers)
@@ -92,7 +96,7 @@ def create_graph(names):
     connections = {}
     # loop through list of capitalized words from song and compare with names and nicknames in csv file
     for name in names:
-        with open('nicknames.csv', 'r') as csvfile:
+        with open('nicknames2.csv', 'r', encoding='utf-8') as csvfile:
             content = csv.reader(csvfile, delimiter=',')
             for row in content:
                 # if name found, update dictionary of connections
@@ -106,13 +110,16 @@ def create_graph(names):
 if __name__ == '__main__':
 
     ############# DOWNLOAD NICKNAMES FROM GENIUS API ##############
-    # with open('artists.csv', 'r') as csvfile:
+    # with open('../ArtistCSV/1.csv', 'r', encoding='utf-8') as csvfile:
     #     rr = csv.reader(csvfile)
     #     for row in rr:
     #         nicknames = find_nicknames(find_artistID(row))
-    #         with open('nicknames.csv','a') as nf:
+    #         if nicknames is None:
+    #             continue
+    #         with open('nicknames2.csv','a', encoding='utf-8') as nf:
     #             wr = csv.writer(nf)
     #             wr.writerow(row + nicknames)
 
     user_input = input('artist: ').replace(" ", "-")
-    print(create_graph(clean_lyrics(find_lyrics(find_artistID(user_input))[0])))
+    songs = find_lyrics(find_artistID(user_input))
+    print(create_graph(clean_lyrics(songs)))
