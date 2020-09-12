@@ -1,6 +1,18 @@
 body{
 	max-height:100%;
-	background: url("artistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.4) , rgba(0,0,0,0.85));
+	background: url("ArtistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.4) , rgba(0,0,0,0.85));
+	background-blend-mode: overlay;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	color: white; /*overrites bootstrap color which is dark grey */
+	width: auto;
+	margin:0px;
+}
+
+.about{
+	max-height:100%;
+	background: url("ArtistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.68) , rgba(0,0,0,0.87));
 	background-blend-mode: overlay;
 	background-size: cover;
 	background-position: center;
@@ -17,10 +29,11 @@ h1{
 	margin-left:5px;
 	margin-top:0px;
 }
-h6 {
+h6, h3 {
 	font-weight:normal;
 	font-family: Courier;
 }
+
 
 p {
 	font-family: Courier ; 
@@ -37,7 +50,7 @@ p {
 	color:white;
 }
 
-.col-md-5{
+.col-md-6{
 	background: rgba(211,211,211,0.4);
 	padding:30px;
 }

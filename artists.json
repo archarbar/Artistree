@@ -1,0 +1,37 @@
+{
+	"name":"Eminem",
+	"count":1,
+	"artist":[
+		{
+			"name":"Tyler",
+			"count":2,
+			"artist":[
+			]
+		},
+		{
+			"name": "50 cent",
+			"count":1,
+			"artist":[
+			]
+		},
+		{
+			"name":"Adele",
+			"count":3,
+			"artist":[
+				{
+					"name":"Miley",
+					"count":1,
+					"artist":[
+					]
+				},
+				{
+					"name":"Britney",
+					"count":2,
+					"artist":[
+					]
+				}
+			]
+		}
+	
+	]
+}
