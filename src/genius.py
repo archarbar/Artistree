@@ -44,21 +44,27 @@ def find_lyrics(url):
 
 user_input = input('artist: ').replace(" ", "-")
 
-path = 'search/'
-request_uri = '/'.join([base_url, path])
-print(request_uri + user_input)
+song_path = 'search/'
+song_request_uri = '/'.join([base_url, song_path])
+print(song_request_uri + user_input)
 
 params = {'q': user_input}
 
 token = 'Bearer {}'.format(genius_client_access_token)
 headers = {'Authorization': token}
 
-r = requests.get(request_uri, params=params, headers=headers)
+song_request = requests.get(song_request_uri, params=params, headers=headers)
 # print(r.text)
 
 #link for most popular song for artist
-y = json.loads(r.text)
-URL = y['response']['hits'][0]['result']['url']
-print(URL)
+y = json.loads(song_request.text)
+artist_id = y['response']['hits'][0]['result']['primary_artist']['id']
 
-print(find_lyrics(URL))
+artist_path = 'artists/'
+artist_request_uri = base_url + '/' + artist_path + str(artist_id) + '/songs?sort=popularity&per_page=30'
+artist_request = requests.get(artist_request_uri, params=params, headers=headers)
+
+z = json.loads(artist_request.text)
+for song in z['response']['songs']:
+    url = ''.join(['https://genius.com', song['path']])
+    print(find_lyrics(url))
