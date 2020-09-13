@@ -54,6 +54,22 @@ text{
 	margin:0px;
 }
 
+#leftbox { 
+	float:left;  
+	width:33%; 
+	height:280px; 
+} 
+#middlebox{ 
+	float:left;  
+	width:33%; 
+	height:280px; 
+} 
+#rightbox{ 
+	float:right; 
+	width:33%; 
+	height:280px; 
+} 
+
 h1{
 	font-family:Courier;
 	font-weight:normal;	
@@ -75,6 +91,14 @@ p {
 	margin-left:0px;
 }
 
+ul {
+	font-family: Courier ; 
+	font-size: 13px;
+	line-height:12px;
+	margin-bottom:4px;
+	margin-left:0px;
+}
+	
 #footnote {
 	font-size: 12px; 
 	font-weight:bold; 
