@@ -1,0 +1,4 @@
+Change shell_exec command from python to python3 when uploading to online server
+
+Got a dataset of 10 000 most known artists on MTV here:
+https://gist.github.com/mbejda/9912f7a366c62c1f296c
