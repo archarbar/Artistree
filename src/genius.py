@@ -31,7 +31,7 @@ def find_artist(artistName):
         artist = y['response']['hits'][0]['result']['primary_artist']
     except:
         return None
-    return type(artist)
+    return artist
 
 
 def find_lyrics(artist):
@@ -152,7 +152,8 @@ def create_graph(names, artist):
                         connections[mention] = [1]
     # find image url of mentioned artists to display in frontend graph
     for connection in connections:
-        connections[connection].append(artist['image_url'])
+        a = find_artist(connection)
+        connections[connection].append(a['image_url'])
     return connections
 
 def find_connection(artistName):
