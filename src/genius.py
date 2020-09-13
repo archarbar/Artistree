@@ -3,6 +3,8 @@ import json
 from bs4 import BeautifulSoup
 import re
 import csv
+import sys
+
 
 genius_client_id = 'cSHZqVRH60I9GqbgI-EMEeCGm6EZD0hhiIcffqXCyGHWqzQ0nLJQarDscUhH3_HJ'
 genius_secret_id = 'bJtcQAhAyV5yDBgqakLtYL0UJLD8UlfT7hrxLBMsvSEWOnPWcoSYpEcd3uhYi4QS9swjGDht4B3-nwEB-cVhjQ'
@@ -173,5 +175,8 @@ def find_connection(artistName):
     return create_graph(clean_lyrics(songs), artist)
 
 if __name__ == '__main__':
-    user_input = input('artist: ').replace(" ", "-")
-    print(find_connection(user_input))
+    data = sys.argv[1]
+    if (len(sys.argv)>2):
+        for i in range(len(sys.argv)-2):
+            data = data+"-"+sys.argv[i+2]        
+    print(find_connection(data))

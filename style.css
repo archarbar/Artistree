@@ -1,0 +1,142 @@
+body{
+	max-height:100%;
+	background: url("ArtistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.4) , rgba(0,0,0,0.85));
+	background-blend-mode: overlay;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	color: white; /*overrites bootstrap color which is dark grey */
+	width: auto;
+	margin:0px;
+}
+
+path {
+	fill: none;
+	stroke:#A9A9A9;
+	/*stroke-width:1px;*/
+}
+svg{
+	fill:white;
+}
+
+text{
+	text-shadow:
+		-1px -1px 3px black,
+		-1px 1px 3px black,
+		1px -1px 3px black;
+		1px 1px 3px black;
+	font-family: Courier;
+	font-weight:bold;
+}
+
+
+
+.about{
+	max-height:100%;
+	background: url("ArtistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.75) , rgba(0,0,0,0.90));
+	background-blend-mode: overlay;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	color: white; /*overrites bootstrap color which is dark grey */
+	width: auto;
+	margin:0px;
+}
+.result{
+	max-height:100%;
+	background: url("ArtistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.85) , rgba(0,0,0,95));
+	background-blend-mode: overlay;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	color: white; 
+	width: auto;
+	margin:0px;
+}
+
+
+
+#leftbox { 
+	float:left;  
+	width:33%; 
+	height:280px; 
+} 
+#middlebox{ 
+	float:left;  
+	width:33%; 
+	height:280px; 
+} 
+#rightbox{ 
+	float:right; 
+	width:33%; 
+	height:280px; 
+} 
+
+h1{
+	font-family:Courier;
+	font-weight:normal;	
+	font-size: 40px;
+	margin-left:5px;
+	margin-top:0px;
+}
+h6, h3, h4, h2 {
+	font-weight:normal;
+	font-family: Courier;
+}
+
+
+p {
+	font-family: Courier ; 
+	font-size: 13px;
+	line-height:12px;
+	margin-bottom:4px;
+	margin-left:0px;
+}
+
+ul {
+	font-family: Courier ; 
+	font-size: 13px;
+	line-height:12px;
+	margin-bottom:4px;
+	margin-left:0px;
+}
+
+#footnote {
+	font-size: 12px; 
+	font-weight:bold; 
+	font-family:Courier; 
+	color:white;
+}
+
+.col-md-6{
+	background: rgba(211,211,211,0.4);
+	padding:30px;
+}
+
+
+/*Button in login */
+.btn-primary {
+    background-color: #909090 !important; /*Overrides bootstrap's class. Found these properties going on the link of bootstrap cdn and control+f ".btn-primary" */
+	border-color:#999999 !important;
+	font-weight:bold !important;
+}
+
+.btn-primary:hover {
+	background-color: #707070 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

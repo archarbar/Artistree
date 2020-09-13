@@ -1,0 +1,42 @@
+<html>
+<head> 
+	<title>Artistree</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!--Link to boostrap to make a professional submit page -->	
+	<link rel="stylesheet" type="text/css" href="style.css"> 
+	<link rel="stylesheet" type="text/css" href="animate.css"> <!--Link to animate.css to make a page with dynamic elements when loading -->
+	<link rel="shortcut icon" href="img/favicon.png">
+</head>
+<body>
+<a style="font-size:13px;font-family:Courier;margin-right:5px;margin-top:-7px;position:absolute;color:white;right:0;" href="about.html">About Artistree</a>
+<div align="center" style="margin-top:5px;margin-bottom:0px;padding:0px;padding-top:20px;">
+	<h1 id="logintitle" style="position:relative;display:inline;padding:0px;line-height:20px;letter-spacing:25px;">ARTISTREE</h1>
+	<img src="img/logo.png" style="width:50px;height:50px;margin-bottom:20px;margin-top:10px;" />
+</div>
+<h6 align="center">Find connections between artists</h6>
+
+<br>
+<center>
+<b>
+</b>
+</center>
+<center>
+<div class="container">
+	<div class="login-box">
+			<div class="col-md-6"> <!--As you can see there are twoo classes. The class that is at the right overrides the bootstrap class if they overlap. Bootstrap class. There are 12 columns so col-md-6 means there will be 2 columns -->
+				<h2>Enter Artist</h2>
+				<form action="submit.php" method="post" autocomplete= off> <!-- This explains very well HTML forms and the type attribute https://www.w3schools.com/tags/att_input_type.asp -->
+					<div class="form-group">
+						<label>Artist's Name</label>
+						<input id="loginUN" type="text" name="artist" class="form-control" text="Enter Artist's Name" required>
+					</div>
+					<button type="submit" class="btn btn-primary"> Submit </button>
+				</form>
+			</div>
+	</div>
+</div>
+</center>
+<br><br><br>
+<p id="footnote" align="center">Created By Mathusan Chandramohan, Victor Zhong and Kleard Mama For the PENNAPPS XXI Music Hackathon</p>
+</body>
+</html>
