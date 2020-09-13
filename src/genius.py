@@ -12,9 +12,10 @@ token = 'Bearer {}'.format(genius_client_access_token)
 headers = {'Authorization': token}
 
 # use beautiful soup to extract lyrics from html page
-def find_lyrics(artistID):
+def find_lyrics(artist):
     song_lyrics = []
 
+    artistID = str(artist['id'])
     artist_path = 'artists/'
     artist_request_uri = base_url + '/' + artist_path + artistID + '/songs?sort=popularity&per_page=30'
     artist_request = requests.get(artist_request_uri, headers=headers)
@@ -54,7 +55,7 @@ def find_lyrics(artistID):
         song_lyrics.append(lyrics.strip("\n"))
     return song_lyrics
 
-def find_artistID(artistName):
+def find_artist(artistName):
     song_path = 'search/'
     song_request_uri = '/'.join([base_url, song_path])
 
@@ -66,10 +67,10 @@ def find_artistID(artistName):
     #link for most popular song for artist
     y = json.loads(song_request.text)
     try:
-        artistID = str(y['response']['hits'][0]['result']['primary_artist']['id'])
+        artist = y['response']['hits'][0]['result']['primary_artist']
     except:
         return None
-    return artistID
+    return artist
 
 def clean_lyrics(songs):
     names = []
@@ -79,12 +80,14 @@ def clean_lyrics(songs):
         # match all capitalized words/numbers of groups of capitalized words/numbers separated by spaces (to match artist names)
         composite_names = re.finditer(r'([A-Z]+[^A-z]+)+|([A-Z0-9][A-z0-9]*([\ ][A-Z0-9][A-z0-9]*)*)', song)
         for name in composite_names:
-            names.append(name.group())
+            name = name.group().strip('., "!?')
+            names.append(name)
     return names
 
-def find_nicknames(artistID):
-    if artistID is None:
+def find_nicknames(artist):
+    if artist is None:
         return None
+    artistID = str(artist['id'])
     artist_path = 'artists/'
     artist_request_uri = base_url + '/' + artist_path + artistID
     artist_request = requests.get(artist_request_uri, headers=headers)
@@ -94,6 +97,8 @@ def find_nicknames(artistID):
 
 def create_graph(names):
     connections = {}
+    artist_path = 'artists/'
+
     # loop through list of capitalized words from song and compare with names and nicknames in csv file
     for name in names:
         with open('nicknames2.csv', 'r', encoding='utf-8') as csvfile:
@@ -101,10 +106,14 @@ def create_graph(names):
             for row in content:
                 # if name found, update dictionary of connections
                 if name in row:
-                    if name in connections:
-                        connections[row[0]] += 1
+                    artist = row[0].strip()
+                    if artist in connections:
+                        connections[artist][0] += 1
                     else:
-                        connections[row[0]] = 1
+                        connections[artist] = [1]
+    for connection in connections:
+        artist = find_artist(connection)
+        connections[connection].append(artist['image_url'])
     return connections
 
 if __name__ == '__main__':
@@ -113,7 +122,7 @@ if __name__ == '__main__':
     # with open('../ArtistCSV/1.csv', 'r', encoding='utf-8') as csvfile:
     #     rr = csv.reader(csvfile)
     #     for row in rr:
-    #         nicknames = find_nicknames(find_artistID(row))
+    #         nicknames = find_nicknames(find_artist(row))
     #         if nicknames is None:
     #             continue
     #         with open('nicknames2.csv','a', encoding='utf-8') as nf:
@@ -121,5 +130,5 @@ if __name__ == '__main__':
     #             wr.writerow(row + nicknames)
 
     user_input = input('artist: ').replace(" ", "-")
-    songs = find_lyrics(find_artistID(user_input))
+    songs = find_lyrics(find_artist(user_input))
     print(create_graph(clean_lyrics(songs)))
