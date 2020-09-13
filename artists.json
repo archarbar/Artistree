@@ -1,33 +1,81 @@
 {
 	"name":"Eminem",
-	"count":1,
-	"artist":[
+	"count":0,
+	"url":"https://i.kym-cdn.com/entries/icons/original/000/016/038/img-1019555-eminem-5-musicas-do-eminem-que-so-os-maiores-fas-conhecem-ca_widelg.jpg",
+	"children":[
 		{
 			"name":"Tyler",
 			"count":2,
-			"artist":[
+			"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+			"children":[
 			]
 		},
 		{
 			"name": "50 cent",
 			"count":1,
-			"artist":[
+			"url":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/50_Cent_AKA_Curtis_Jackson_%28cropped%29.jpg/220px-50_Cent_AKA_Curtis_Jackson_%28cropped%29.jpg",
+			"children":[
 			]
 		},
 		{
 			"name":"Adele",
 			"count":3,
-			"artist":[
+			"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+			"children":[
 				{
 					"name":"Miley",
 					"count":1,
-					"artist":[
+					"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+					"children":[
 					]
 				},
 				{
 					"name":"Britney",
 					"count":2,
-					"artist":[
+					"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+					"children":[
+						{
+							"name":"Tyler",
+							"count":2,
+							"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+							"children":[
+							]
+						},
+						{
+							"name": "50 cent",
+							"count":1,
+							"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+							"children":[
+							]
+						},
+						{
+							"name":"Tyler",
+							"count":2,
+							"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+							"children":[
+							]
+						},
+						{
+							"name": "50 cent",
+							"count":1,
+							"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+							"children":[
+							]
+						},
+						{
+							"name":"Tyler",
+							"count":2,
+							"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+							"children":[
+							]
+						},
+						{
+							"name": "50 cent",
+							"count":1,
+							"url":"https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL-770x503.jpg",
+							"children":[
+							]
+						}
 					]
 				}
 			]
