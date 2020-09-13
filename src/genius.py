@@ -28,7 +28,11 @@ def find_artist(artistName):
     #link for most popular song for artist
     y = json.loads(song_request.text)
     try:
-        artist = y['response']['hits'][0]['result']['primary_artist']
+        current = 0
+        artist = y['response']['hits'][current]['result']['primary_artist']
+        # while str(artist['name']) != artistName:
+        #     current += 1
+        #     artist = y['response']['hits'][current]['result']['primary_artist']
     except:
         return None
     return artist
@@ -154,6 +158,11 @@ def create_graph(names, artist):
     for connection in connections:
         a = find_artist(connection)
         connections[connection].append(a['image_url'])
+    artistName = str(artist['name'])
+    if artistName not in connections:
+        connections[artistName] = [0, artist['image_url']]
+    else:
+        connections[artistName][0] = 0
     return connections
 
 def find_connection(artistName):
