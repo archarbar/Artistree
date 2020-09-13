@@ -153,15 +153,17 @@ def create_graph(names, artist):
                         connections[mention][0] += 1
                     else:
                         connections[mention] = [1]
-    # find image url of mentioned artists to display in frontend graph
-    for connection in connections:
-        a = find_artist(connection)
-        connections[connection].append(a['image_url'])
     artistName = str(artist['name'])
     if artistName not in connections:
         connections[artistName] = [0, artist['image_url']]
     else:
         connections[artistName][0] = 0
+
+    # find image url of mentioned artists to display in frontend graph
+    for connection in connections:
+        if connection != artistName:
+            a = find_artist(connection)
+            connections[connection].append(a['image_url'])
     return connections
 
 def find_connection(artistName):
@@ -174,4 +176,8 @@ def find_connection(artistName):
 
 if __name__ == '__main__':
     user_input = input('artist: ').replace(" ", "-")
-    print(find_connection(user_input))
+    connections = find_connection(user_input)
+    for connection in connections:
+        connections[connection].append(find_connection(connection))
+    print(connections)
+    
