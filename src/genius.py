@@ -115,6 +115,11 @@ def create_graph(names, artist):
         connections[connection].append(artist['image_url'])
     return connections
 
+def find_connection(artistName):
+    artist = find_artist(artistName)
+    songs = find_lyrics(artist)
+    return create_graph(clean_lyrics(songs), artist)
+
 if __name__ == '__main__':
 
     ############# DOWNLOAD NICKNAMES FROM GENIUS API ##############
@@ -129,6 +134,4 @@ if __name__ == '__main__':
     #             wr.writerow(row + nicknames)
 
     user_input = input('artist: ').replace(" ", "-")
-    artist = find_artist(user_input)
-    songs = find_lyrics(artist)
-    print(create_graph(clean_lyrics(songs), artist))
+    print(find_connection(user_input))
