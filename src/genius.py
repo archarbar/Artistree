@@ -23,16 +23,15 @@ def find_artist(artistName):
     params = {'q': artistName}
 
     song_request = requests.get(song_request_uri, params=params, headers=headers)
-    # print(r.text)
 
     #link for most popular song for artist
     y = json.loads(song_request.text)
     try:
         current = 0
         artist = y['response']['hits'][current]['result']['primary_artist']
-        # while str(artist['name']) != artistName:
-        #     current += 1
-        #     artist = y['response']['hits'][current]['result']['primary_artist']
+        while str(artist['name']).lower() != artistName.lower() and current < 9:
+            current += 1
+            artist = y['response']['hits'][current]['result']['primary_artist']
     except:
         return None
     return artist
