@@ -11,25 +11,37 @@ base_url = 'https://api.genius.com'
 token = 'Bearer {}'.format(genius_client_access_token)
 headers = {'Authorization': token}
 
+
 def find_artist(artistName):
+    '''
+    find an artist using GeniusAPI from the artist name.
+    returns the response dictionary
+    '''
     song_path = 'search/'
     song_request_uri = '/'.join([base_url, song_path])
 
     params = {'q': artistName}
 
     song_request = requests.get(song_request_uri, params=params, headers=headers)
-    # print(r.text)
 
     #link for most popular song for artist
     y = json.loads(song_request.text)
     try:
-        artist = y['response']['hits'][0]['result']['primary_artist']
+        current = 0
+        artist = y['response']['hits'][current]['result']['primary_artist']
+        while str(artist['name']).lower() != artistName.lower() and current < 9:
+            current += 1
+            artist = y['response']['hits'][current]['result']['primary_artist']
     except:
         return None
     return artist
 
-# use beautiful soup to extract lyrics from html page
+
 def find_lyrics(artist):
+    '''
+    find the lyrics for the 30 most popular song for an artist using GeniusAPI.
+    returns list of strings of full lyrics for a song
+    '''
     song_lyrics = []
 
     artistID = str(artist['id'])
@@ -44,6 +56,7 @@ def find_lyrics(artist):
             print("Song URL returned 404.")
             return None
 
+        # use beautiful soup to extract lyrics from html page
         # Scrape the song lyrics from the HTML
         html = BeautifulSoup(page.text, "html.parser")
 
@@ -73,6 +86,10 @@ def find_lyrics(artist):
     return song_lyrics
 
 def clean_lyrics(songs):
+    '''
+    finds all capitalized words or groups of words in each song.
+    returns list of strings of capitalized words or groups of words
+    '''
     names = []
 
     for song in songs:
@@ -85,6 +102,10 @@ def clean_lyrics(songs):
     return names
 
 def find_nicknames(artist):
+    ''' 
+    finds artist nicknames found on Genius website through GeniusAPI.
+    returns literable of strings of alternate names
+    '''
     if artist is None:
         return None
     artistID = str(artist['id'])
@@ -95,7 +116,28 @@ def find_nicknames(artist):
     # return all nicknames for wanted artist
     return x['response']['artist']['alternate_names']
 
+def download_nicknames():
+    '''
+    reads a csv file of artist names. Generates another csv file of artist names including their alternate names
+    '''
+    with open('../ArtistCSV/1.csv', 'r', encoding='utf-8') as csvfile:
+        rr = csv.reader(csvfile)
+        # read artist name
+        for row in rr:
+            # call method to find all nicknames
+            nicknames = find_nicknames(find_artist(row))
+            if nicknames is None:
+                continue
+            # write name and nicknames in new csv file
+            with open('nicknames2.csv','a', encoding='utf-8') as nf:
+                wr = csv.writer(nf)
+                wr.writerow(row + nicknames)
+
 def create_graph(names, artist):
+    '''
+    creates the dictionary containing the wanted information to be transmitted to the frontend.
+    returns a dictionary with mentioned artist name as key, and list with number of mentions and image url as value.
+    '''
     connections = {}
     artist_path = 'artists/'
 
@@ -104,34 +146,32 @@ def create_graph(names, artist):
         with open('nicknames2.csv', 'r', encoding='utf-8') as csvfile:
             content = csv.reader(csvfile, delimiter=',')
             for row in content:
-                # if name found, update dictionary of connections
+                # if name found, update dictionary of connections and number of mentions
                 if name in row:
                     mention = row[0].strip()
                     if mention in connections:
                         connections[mention][0] += 1
                     else:
                         connections[mention] = [1]
+    # find image url of mentioned artists to display in frontend graph
     for connection in connections:
-        connections[connection].append(artist['image_url'])
+        a = find_artist(connection)
+        connections[connection].append(a['image_url'])
+    artistName = str(artist['name'])
+    if artistName not in connections:
+        connections[artistName] = [0, artist['image_url']]
+    else:
+        connections[artistName][0] = 0
     return connections
 
 def find_connection(artistName):
+    '''
+    implements all the methods together. takes artist name as string input, outputs the dictionary of mentions
+    '''
     artist = find_artist(artistName)
     songs = find_lyrics(artist)
     return create_graph(clean_lyrics(songs), artist)
 
 if __name__ == '__main__':
-
-    ############# DOWNLOAD NICKNAMES FROM GENIUS API ##############
-    # with open('../ArtistCSV/1.csv', 'r', encoding='utf-8') as csvfile:
-    #     rr = csv.reader(csvfile)
-    #     for row in rr:
-    #         nicknames = find_nicknames(find_artist(row))
-    #         if nicknames is None:
-    #             continue
-    #         with open('nicknames2.csv','a', encoding='utf-8') as nf:
-    #             wr = csv.writer(nf)
-    #             wr.writerow(row + nicknames)
-
     user_input = input('artist: ').replace(" ", "-")
     print(find_connection(user_input))
