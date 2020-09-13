@@ -11,6 +11,23 @@ base_url = 'https://api.genius.com'
 token = 'Bearer {}'.format(genius_client_access_token)
 headers = {'Authorization': token}
 
+def find_artist(artistName):
+    song_path = 'search/'
+    song_request_uri = '/'.join([base_url, song_path])
+
+    params = {'q': artistName}
+
+    song_request = requests.get(song_request_uri, params=params, headers=headers)
+    # print(r.text)
+
+    #link for most popular song for artist
+    y = json.loads(song_request.text)
+    try:
+        artist = y['response']['hits'][0]['result']['primary_artist']
+    except:
+        return None
+    return artist
+
 # use beautiful soup to extract lyrics from html page
 def find_lyrics(artist):
     song_lyrics = []
@@ -55,23 +72,6 @@ def find_lyrics(artist):
         song_lyrics.append(lyrics.strip("\n"))
     return song_lyrics
 
-def find_artist(artistName):
-    song_path = 'search/'
-    song_request_uri = '/'.join([base_url, song_path])
-
-    params = {'q': artistName}
-
-    song_request = requests.get(song_request_uri, params=params, headers=headers)
-    # print(r.text)
-
-    #link for most popular song for artist
-    y = json.loads(song_request.text)
-    try:
-        artist = y['response']['hits'][0]['result']['primary_artist']
-    except:
-        return None
-    return artist
-
 def clean_lyrics(songs):
     names = []
 
@@ -95,7 +95,7 @@ def find_nicknames(artist):
     # return all nicknames for wanted artist
     return x['response']['artist']['alternate_names']
 
-def create_graph(names):
+def create_graph(names, artist):
     connections = {}
     artist_path = 'artists/'
 
@@ -106,13 +106,12 @@ def create_graph(names):
             for row in content:
                 # if name found, update dictionary of connections
                 if name in row:
-                    artist = row[0].strip()
-                    if artist in connections:
-                        connections[artist][0] += 1
+                    mention = row[0].strip()
+                    if mention in connections:
+                        connections[mention][0] += 1
                     else:
-                        connections[artist] = [1]
+                        connections[mention] = [1]
     for connection in connections:
-        artist = find_artist(connection)
         connections[connection].append(artist['image_url'])
     return connections
 
@@ -130,5 +129,6 @@ if __name__ == '__main__':
     #             wr.writerow(row + nicknames)
 
     user_input = input('artist: ').replace(" ", "-")
-    songs = find_lyrics(find_artist(user_input))
-    print(create_graph(clean_lyrics(songs)))
+    artist = find_artist(user_input)
+    songs = find_lyrics(artist)
+    print(create_graph(clean_lyrics(songs), artist))
