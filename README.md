@@ -17,5 +17,5 @@ We used the Genius API to find lyrics of artists and images of artists. We used 
 
 Since the JSON data sent by the Python script couldn't be used with d3.js (data visualization library), we had to transform the data into a javascript Object, read it and then create another appropriate javascript Object that d3.js could read. For d3.js to work, we had to do numerous tweaks and fixes to the Object and it still wouldn't work for 2-3 hours. Meanwhile, we were also trying to make the website using Heroku and a Flask backend in case this LAMP-stack version with d3.js wouldn't work. We spent hours reading the documentation for d3.js and finally found multiple solutions to our several problems in the span of 3 hours and fixed it. Since this version was better than the flask version, we decided to use this for the Hackathon. We did an all-nighter and finished everything including the logo at around 6:00 AM on Sunday (13th september 2020).
 
-## Made By
+## Who Made It?
 Mathusan Chandramohan, Victor Zhong, Kleard Mama, Sangwoo Han
