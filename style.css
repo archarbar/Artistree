@@ -1,6 +1,6 @@
 body{
 	max-height:100%;
-	background-image: url("artistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.4) , rgba(0,0,0,0.85));
+	background-image: url("./artistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.4) , rgba(0,0,0,0.85));
 	background-blend-mode: overlay;
 	background-size: cover;
 	background-position: center;
@@ -33,7 +33,7 @@ text{
 
 .about{
 	max-height:100%;
-	background-image: url("artistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.75) , rgba(0,0,0,0.90));
+	background-image: url("./artistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.75) , rgba(0,0,0,0.90));
 	background-blend-mode: overlay;
 	background-size: cover;
 	background-position: center;
@@ -44,7 +44,7 @@ text{
 }
 .result{
 	max-height:100%;
-	background-image: url("artistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.85) , rgba(0,0,0,95));
+	background-image: url("./artistsImg/backgroundGrey.png"), linear-gradient(to top,rgba(0,0,0,0.85) , rgba(0,0,0,95));
 	background-blend-mode: overlay;
 	background-size: cover;
 	background-position: center;

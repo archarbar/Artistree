@@ -1,23 +1,4 @@
 <?php
-//Down below template if we need to connect to a database
-/*
-$conn = mysqli_connect("localhost", "root", "TtTdWJ0aD2us", "swag");
-
-//if connection to server/database has error
-if (!$conn){
-        echo 'Connection error: ' . mysqli_connect_error();
-}
-$result = mysqli_query($conn, "SELECT * FROM swag");
-if($result->num_rows != 0){
-        while ($row = mysqli_fetch_assoc($result)){
-                $data[] = $row;
-        }
-}
-
-echo $data[0]["swag"];
-echo $data[0]["count"];
-*/
-
 $artist= $_POST['artist'];
 ?>
 
